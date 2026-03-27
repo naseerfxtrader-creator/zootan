@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trendy Picks - Fashion Essentials</title>
-    
-    <!-- Google Fonts -->
+    <title>Zootan Store - Trendy Girls Fashion</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -24,14 +22,14 @@
 
         /* Navbar */
         .navbar {
-            background: linear-gradient(135deg, #f9e4e8 0%, #f0d4e0 100%);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             padding: 1rem 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
         }
 
         .nav-container {
@@ -52,47 +50,79 @@
             background-clip: text;
         }
 
-        .nav-links {
+        .nav-menu {
             display: flex;
             list-style: none;
             gap: 2rem;
         }
 
-        .nav-links a {
+        .nav-menu a {
             text-decoration: none;
-            color: #555;
+            color: #333;
             font-weight: 500;
-            transition: all 0.3s ease;
+            transition: color 0.3s ease;
             position: relative;
         }
 
-        .nav-links a:hover {
+        .nav-menu a:hover {
             color: #ff6b9d;
         }
 
-        .nav-links a::after {
+        .nav-menu a::after {
             content: '';
             position: absolute;
             width: 0;
             height: 2px;
             bottom: -5px;
             left: 0;
-            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            background: #ff6b9d;
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover::after {
+        .nav-menu a:hover::after {
             width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #ffeef2 0%, #f8e1e9 50%, #f0d4e0 100%);
+            background: linear-gradient(135deg, #ffeef5 0%, #fff1f7 100%);
             padding: 120px 2rem 80px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .hero h1 {
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%23ff6b9d" stop-opacity="0.1"/><stop offset="100%" stop-color="%23c44569" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"><animate attributeName="r" values="100;150;100" dur="8s" repeatCount="indefinite"/></circle><circle cx="800" cy="300" r="80" fill="url(%23a)"><animate attributeName="r" values="80;120;80" dur="10s" repeatCount="indefinite"/></circle></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .hero-content h1 {
             font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 700;
             margin-bottom: 1rem;
@@ -100,13 +130,39 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            position: relative;
+            z-index: 2;
         }
 
-        .hero p {
-            font-size: 1.2rem;
+        .hero-content p {
+            font-size: 1.3rem;
             color: #666;
+            margin-bottom: 2rem;
             max-width: 600px;
-            margin: 0 auto 3rem;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(255, 107, 157, 0.6);
         }
 
         /* Products Section */
@@ -119,8 +175,8 @@
         .section-title {
             text-align: center;
             font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 4rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
             color: #333;
         }
 
@@ -128,7 +184,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
 
         .product-card {
@@ -136,13 +192,12 @@
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s ease;
             position: relative;
-            cursor: pointer;
         }
 
         .product-card:hover {
-            transform: translateY(-15px) scale(1.02);
+            transform: translateY(-15px);
             box-shadow: 0 25px 60px rgba(0,0,0,0.2);
         }
 
@@ -154,15 +209,16 @@
         }
 
         .product-card:hover .product-image {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         .product-info {
             padding: 1.5rem;
+            text-align: center;
         }
 
         .product-title {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
             color: #333;
@@ -175,38 +231,36 @@
             margin-bottom: 1.5rem;
         }
 
-        .buy-btn {
+        .buy-button {
             width: 100%;
-            padding: 12px;
             background: linear-gradient(135deg, #ff6b9d, #c44569);
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 1rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-family: inherit;
         }
 
-        .buy-btn:hover {
-            transform: translateY(-2px);
+        .buy-button:hover {
+            transform: scale(1.05);
             box-shadow: 0 10px 25px rgba(255, 107, 157, 0.4);
         }
 
         /* Footer */
         .footer {
-            background: linear-gradient(135deg, #2c1810 0%, #1a0f0b 100%);
-            color: white;
-            text-align: center;
+            background: #f8f8f8;
             padding: 3rem 2rem 1.5rem;
+            text-align: center;
+            border-top: 1px solid #eee;
         }
 
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 1.5rem;
             margin-bottom: 2rem;
         }
 
@@ -216,51 +270,44 @@
             justify-content: center;
             width: 50px;
             height: 50px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
             color: white;
+            border-radius: 50%;
             text-decoration: none;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
         }
 
         .social-links a:hover {
-            background: #ff6b9d;
             transform: translateY(-5px) scale(1.1);
         }
 
-        .footer p {
-            opacity: 0.8;
+        .footer-text {
+            color: #666;
             font-size: 0.9rem;
-        }
-
-        /* Mobile Menu */
-        .mobile-menu {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .hamburger {
-            width: 25px;
-            height: 3px;
-            background: #ff6b9d;
-            margin: 3px 0;
-            transition: 0.3s;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-menu {
+            .hamburger {
                 display: flex;
             }
 
-            .nav-container {
-                padding: 0 1rem;
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
             }
 
             .hero {
@@ -280,6 +327,7 @@
         @media (max-width: 480px) {
             .products-grid {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
         }
     </style>
@@ -288,168 +336,135 @@
     <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">Trendy Picks</div>
-            <ul class="nav-links">
+            <div class="logo">Zootan Store</div>
+            <ul class="nav-menu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#products">Products</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <div class="mobile-menu">
-                <span class="hamburger"></span>
-                <span class="hamburger"></span>
-                <span class="hamburger"></span>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <h1>Trendy Picks For You</h1>
-        <p>Discover the latest fashion essentials - from chic handbags to glamorous makeup brushes. Elevate your style with our curated collection.</p>
+        <div class="hero-content">
+            <h1>Trendy Fashion Picks</h1>
+            <p>Discover the latest in handbags, vintage mirrors, acrylic nails & makeup brushes. Elevate your style with our curated collection.</p>
+            <a href="#products" class="cta-button">Shop Now</a>
+        </div>
     </section>
 
     <!-- Products Section -->
     <section id="products" class="products-section">
-        <h2 class="section-title">Featured Collection</h2>
-        <div class="products-grid" id="productsGrid">
-            <!-- Products will be populated by JavaScript -->
-        </div>
-    </section>
+        <h2 class="section-title">Featured Products</h2>
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Luxury Handbag" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Luxury Handbag</h3>
+                    <div class="product-price">$89</div>
+                    <button class="buy-button" onclick="buyNow('https://amazon.com')">Buy Now</button>
+                </div>
+            </div>
 
-    <!-- Footer -->
-    <footer id="contact" class="footer">
-        <div class="social-links">
-            <a href="https://instagram.com" target="_blank" aria-label="Instagram">📸</a>
-            <a href="https://pinterest.com" target="_blank" aria-label="Pinterest">📌</a>
-        </div>
-        <p>&copy; 2024 Trendy Picks. All rights reserved. | Made with 💕 for fashion lovers</p>
-    </footer>
+            <!-- Product 2 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Vintage Mirror" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Vintage Mirror</h3>
+                    <div class="product-price">$45</div>
+                    <button class="buy-button" onclick="buyNow('https://amazon.com')">Buy Now</button>
+                </div>
+            </div>
 
-    <script>
-        // Product data
-        const products = [
-            {
-                title: "Designer Leather Handbag",
-                price: "$89.99",
-                image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=250&fit=crop",
-                amazonLink: "https://amazon.com/dp/B08N5WRWNW"
-            },
-            {
-                title: "Vintage Gold Mirror",
-                price: "$49.99",
-                image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=250&fit=crop",
-                amazonLink: "https://amazon.com/dp/B07H4H5G6F"
-            },
-            {
-                title: "Luxury Acrylic Nails Set",
-                price: "$29.99",
-                image: "https://images.unsplash.com/photo-1612688591821-41bc8f308517?w=400&h=250&fit=crop",
-                amazonLink: "https://amazon.com/dp/B09K2L3M4N"
-            },
-            {
-                title: "Premium Makeup Brush Set",
-                price: "$39.99",
-                image: "https://images.unsplash.com/photo-1580894908361-9679e922f0ef?w=400&h=250&fit=crop",
-                amazonLink: "https://amazon.com/dp/B07X3Y4Z5A"
-            },
-            {
-                title: "Crossbody Sling Bag",
-                price: "$69.99",
-                image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=250&fit=crop",
-                amazonLink: "https://amazon.com/dp/B08P6Q7R8S"
-            },
-            {
-                title: "Compact Vanity Mirror",
-                price: "$24.99",
-                image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=250&fit=crop",
-                amazonLink: "https://amazon.com/dp/B08T9U0V1W"
-            },
-            {
-                title: "Glitter Nail Extensions",
-                price: "$34.99",
-                image: "https://images.unsplash.com/photo-1612688591821-41bc8f308517?w=400&h=250&fit=crop",
-                amazonLink: "https://amazon.com/dp/B09M2N3P4Q"
-            },
-            {
-                title: "Rose Gold Brush Set",
-                price: "$44.99",
-                image: "https://images.unsplash.com/photo-1580894908361-9679e922f0ef?w=400&h=250&fit=crop",
-                amazonLink: "https://amazon.com/dp/B08V5W6X7Y"
-            }
-        ];
+            <!-- Product 3 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1574660422670-287d1b03e8f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Acrylic Nails Set" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Acrylic Nails Set</h3>
+                    <div class="product-price">$25</div>
+                    <button class="buy-button" onclick="buyNow('https://amazon.com')">Buy Now</button>
+                </div>
+            </div>
 
-        // Populate products
-        function createProducts() {
-            const productsGrid = document.getElementById('productsGrid');
-            products.forEach(product => {
-                const productCard = document.createElement('div');
-                productCard.className = 'product-card';
-                productCard.innerHTML = `
-                    <img src="${product.image}" alt="${product.title}" class="product-image">
-                    <div class="product-info">
-                        <h3 class="product-title">${product.title}</h3>
-                        <div class="product-price">${product.price}</div>
-                        <button class="buy-btn" onclick="window.open('${product.amazonLink}', '_blank')">Buy Now</button>
-                    </div>
-                `;
-                productsGrid.appendChild(productCard);
-            });
-        }
+            <!-- Product 4 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1583482353922-478a9b763c7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Makeup Brushes" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Premium Makeup Brushes</h3>
+                    <div class="product-price">$35</div>
+                    <button class="buy-button" onclick="buyNow('https://amazon.com')">Buy Now</button>
+                </div>
+            </div>
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+            <!-- Product 5 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Designer Handbag" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Designer Handbag</h3>
+                    <div class="product-price">$120</div>
+                    <button class="buy-button" onclick="buyNow('https://amazon.com')">Buy Now</button>
+                </div>
+            </div>
 
-        // Mobile menu toggle (basic implementation)
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const navLinks = document.querySelector('.nav-links');
-        
-        mobileMenu.addEventListener('click', () => {
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-            navLinks.style.flexDirection = 'column';
-            navLinks.style.position = 'absolute';
-            navLinks.style.background = 'rgba(255,255,255,0.95)';
-            navLinks.style.top = '100%';
-            navLinks.style.left = '0';
-            navLinks.style.width = '100%';
-            navLinks.style.padding = '1rem';
-            navLinks.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
-        });
+            <!-- Product 6 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1604023386119-3aba5a9aa0b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Gold Mirror" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Gold Vintage Mirror</h3>
+                    <div class="product-price">$60</div>
+                    <button class="buy-button" onclick="buyNow('https://amazon.com')">Buy Now</button>
+                </div>
+            </div>
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            createProducts();
-        });
+            <!-- Product 7 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1606853737598-9e245d231d79?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Nail Kit" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Professional Nail Kit</h3>
+                    <div class="product-price">$40</div>
+                    <button class="buy-button" onclick="buyNow('https://amazon.com')">Buy Now</button>
+                </div>
+            </div>
 
-        // Intersection Observer for scroll animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        });
+            <!-- Product 8 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1574169208507-84376144848b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Brush Set" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">10pc Brush Set</h3>
+                    <div class="product-price">$28</div>
+                    <button class="buy-button" onclick="buyNow('https://amazon.com')">Buy Now</button>
+                </div>
+            </div>
 
-        // Observe product cards
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.product-card').forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(card);
-            });
-        });
-    </script>
-</body>
-</html>
+            <!-- Product 9 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1582780350207-7e3f22e2fc5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Crossbody Bag" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Crossbody Bag</h3>
+                    <div class="product-price">$75</div>
+                    <button class="buy-button" onclick="buyNow('https://amazon.com')">Buy Now</button>
+                </div>
+            </div>
+
+            <!-- Product 10 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1606761564358-91e9c658e91e?ixlib=Poppins:wght@300;400;500;600;700;400;500;600;700&display=swap" rel="stylesheet">
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+                <style>
+                    * {
+                        margin: 0;
+                        padding: 0;
+                        box-sizing: border-box;
+                    }
+
+                    body {
+                        font-family: 'Poppins', sans-serif;
+                        line-height: 1.6;
+                        color: #333;
